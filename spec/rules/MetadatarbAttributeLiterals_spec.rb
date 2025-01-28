@@ -12,18 +12,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description 'Cross-reference the cookbook name to the maintainer_email in a CSV fashion'
-needs_rules ['MetadatarbAttributeLiterals']
+require_relative './helper'
 
-def to_a
-  buffer = Set.new
-  @kb.metadatarbs.each do |_, metadata|
-    cb = metadata['MetadatarbAttributeLiterals']
-    buffer << "#{cb[:name]},#{cb[:maintainer_email]}"
+describe Bookworm::InferRules::MetadatarbAttributeLiterals do
+  let(:ast) do
+    generate_ast(<<~RUBY)
+    name "fb_example"
+    maintainer "Dave"
+    maintainer_email "dave@example.org"
+  RUBY
   end
-  buffer.sort.to_a
-end
-
-def output
-  to_a
+  it 'captures the metadata literals' do
+    rule = described_class.new({ 'ast' => ast })
+    expect(rule.output).to eq(
+      {
+        :name => 'fb_example',
+        :maintainer => 'Dave',
+        :maintainer_email => 'dave@example.org',
+      },
+                             )
+  end
 end

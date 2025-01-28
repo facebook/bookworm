@@ -1,4 +1,4 @@
-# Copyright (c) 2022-present, Meta, Inc.
+# Copyright (c) 2022-present, Meta Platforms, Inc. and affiliates
 # All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +12,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-require_relative './helper'
+description 'Helper rule to show existence of an attributes file'
+keys %w{
+  attribute
+}
 
-describe Bookworm::InferRules::MetadatarbAttributeLiterals do
-  let(:ast) do
-    generate_ast(<<~RUBY)
-    name "fb_example"
-    maintainer "Dave"
-    maintainer_email "dave@example.org"
-  RUBY
-  end
-  it 'captures the metadata literals' do
-    rule = described_class.new({ 'ast' => ast })
-    expect(rule.output).to eq(
-      {
-        :name => 'fb_example',
-        :maintainer => 'Dave',
-        :maintainer_email => 'dave@example.org',
-      },
-                             )
-  end
+def output
+  true
 end

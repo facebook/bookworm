@@ -295,7 +295,8 @@ module Bookworm
   end
 end
 
-if __FILE__ == $PROGRAM_NAME || $PROGRAM_NAME == './bin/bookworm'
+# TODO refactor this file so the below PROGRAM_NAME hack isn't necessary
+if __FILE__ == $PROGRAM_NAME || $PROGRAM_NAME == './bin/bookworm' || $PROGRAM_NAME == './bookworm.rb'
   run = Bookworm::Run.new(options, parser.help)
   run.do_action
 end
