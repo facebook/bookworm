@@ -1,7 +1,7 @@
 fb_bookworm
 ===========
 
-[![Continuous Integration](https://github.com/facebook/bookworm/workflows/Continuous%20Integration/badge.svg?event=push)](https://github.com/facebook/bookworm/actions?query=workflow%3A%22Continuous+Integration%22)
+[![Continuous Integration](https://github.com/facebook/bookworm/actions/workflows/ci.yml/badge.svg)](https://github.com/facebook/bookworm/actions/workflows/ci.yml)
 
 Bookworm is a program that gleans context from a Chef/Ruby codebase, which
 recognizes that Ruby source files in different directories have different
